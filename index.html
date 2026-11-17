@@ -22,7 +22,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="theme-color" content="#0b1120">
+<meta name="theme-color" content="#0a0c11">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
@@ -30,17 +30,17 @@
 VOICE: מדריך לימודי רגוע וברור, כמו ספר קורס טוב שמסביר כל לחיצה
 IDEA: חוברת לימוד שמדפדפים בה עמוד אחרי עמוד, עם תוכן עניינים בצד
 PICTURE: השלב עצמו, עם שורת עיגולים ממוספרים ולשוניות למה/מתי/איך
-COLOUR and TYPE: כחול לילה כהה, כחול בהיר כמבטא, תכלת קרח לטקסט משני; Heebo בלבד
+COLOUR and TYPE: לילה כמעט שחור, בז כהה לכותרות משנה ולפס הגלילה, כחול כמבטא; Heebo בלבד
 LAYOUT: עמודת תוכן צרה + תוכן עניינים דביק בצד; בטלפון מאחורי כפתור
 */
-:root{scrollbar-color:#34466b var(--bg)}
-*{scrollbar-width:thin;scrollbar-color:#34466b transparent}
+:root{scrollbar-color:#5a4f3d var(--bg)}
+*{scrollbar-width:thin;scrollbar-color:#5a4f3d transparent}
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:#2a3958;border-radius:10px;border:2px solid var(--bg)}
+::-webkit-scrollbar-thumb{background:#4a4234;border-radius:10px;border:2px solid var(--bg)}
 ::-webkit-scrollbar-thumb:hover{background:var(--acc)}
 ::-webkit-scrollbar-corner{background:transparent}
-:root{color-scheme:dark;--bg:#0b1120;--ink:#e6ecf7;--mute:#93a2bd;--line:#1f2b42;--soft:#111a2d;--acc:#5d80ec;--br:#8ec5d6}
+:root{color-scheme:dark;--bg:#0a0c11;--ink:#ece5d8;--mute:#a89f8e;--line:#272c37;--soft:#12161f;--acc:#6085e6;--br:#b8a17a}
 :root[data-theme=light],:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.7 Heebo,Arial,sans-serif;overflow-x:clip}
@@ -92,9 +92,9 @@ main{padding:28px 0 60px}
 .dots{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 18px}
 .dot{width:42px;height:42px;min-height:42px;padding:0;border-radius:50%;border:1.5px solid var(--line);background:transparent;color:var(--mute);font-weight:700;font-size:15px;transition:transform .15s}
 .dot:hover{border-color:var(--br);color:var(--ink)}
-.dot.dn{background:var(--br);border-color:var(--br);color:#0b1120}
+.dot.dn{background:var(--br);border-color:var(--br);color:#0a0c11}
 .dot.cur{border-color:var(--acc);color:var(--ink);box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--acc);transform:scale(1.08)}
-.dot.dn.cur{color:#0b1120}
+.dot.dn.cur{color:#0a0c11}
 .sp{list-style:none;margin:0;padding:0;max-width:780px}
 .step{display:none;border:1px solid var(--line);border-radius:12px;overflow:hidden}
 .step.on{display:block}
@@ -109,7 +109,7 @@ main{padding:28px 0 60px}
 .kv b{font-size:14px;color:var(--br)}.kv p{margin:0;font-size:17px}
 .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
 .deep{background:transparent;color:var(--acc);border:1px dashed var(--acc)}
-.deep[aria-expanded=true]{background:#18244a}
+.deep[aria-expanded=true]{background:#172038}
 .hb[aria-expanded=true]{background:#3f5fc4;border-color:#3f5fc4}
 .how{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--soft)}
 .how .set li{background:var(--bg)}
@@ -135,7 +135,7 @@ main{padding:28px 0 60px}
 .set{display:grid;gap:6px;margin:0;padding:0;list-style:none}
 .set li{border:1px solid var(--line);border-radius:8px;padding:7px 11px;background:var(--soft)}
 .set li .ui{display:inline-block;margin-inline-end:6px}
-.ui{font-weight:700;color:var(--ink);background:#1c2740;border-radius:5px;padding:0 6px;unicode-bidi:isolate;white-space:nowrap}
+.ui{font-weight:700;color:var(--ink);background:#1a1f2a;border-radius:5px;padding:0 6px;unicode-bidi:isolate;white-space:nowrap}
 .nv{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:780px;margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
 .nv span{color:var(--mute);font-size:15px;text-align:center}
 .nv button:disabled{opacity:.35;cursor:default}
@@ -170,37 +170,41 @@ body.ai .mx:not(.has) .dt{display:inline-flex}
 .ask input:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
 .out{color:var(--mute);font-size:16px}
 .wait{color:var(--mute)}.err{color:var(--acc)}
-#toast{position:fixed;bottom:16px;inset-inline-start:16px;background:#1c2740;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:15px;opacity:0;pointer-events:none;transition:opacity .3s;max-width:calc(100vw - 32px);z-index:60}
+#toast{position:fixed;bottom:16px;inset-inline-start:16px;background:#1a1f2a;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:15px;opacity:0;pointer-events:none;transition:opacity .3s;max-width:calc(100vw - 32px);z-index:60}
 #toast.on{opacity:1}
 .fsb{display:none;flex:none;width:40px;height:40px;min-height:40px;padding:0;border:1px solid var(--acc);border-radius:9px;background:transparent;color:var(--acc);place-content:center}
-.step.sr .fsb{display:grid}.fsb:hover{background:#18244a}
-#favl li{display:flex;align-items:center;gap:4px}#favl li>.ts{flex:1}
-.fvf{flex:none;width:34px;height:34px;min-height:34px;padding:0;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--acc);display:grid;place-content:center}.fvf:hover{border-color:var(--acc);background:#18244a}
-.fvf svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.step.sr .fsb{display:grid}.fsb:hover{background:#172038}
 .fsb svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 #lm{position:fixed;inset:0;z-index:70;background:var(--bg);display:none;flex-direction:column}
 #lm.on{display:flex}body.lmo{overflow:hidden}
 .lmh{position:sticky;top:0;display:flex;align-items:center;gap:10px;padding:12px max(4vw,14px);background:var(--bg);border-bottom:1px solid var(--line)}
 .lmh span{flex:1;color:var(--mute);font-size:14.5px}
 .lmh button{min-height:40px;padding:6px 12px}
-.lmg{flex:1;min-height:0;display:grid;grid-template-columns:clamp(280px,24vw,380px) minmax(0,1fr)}
-.lmt{overflow:auto;border-inline-end:1px solid var(--line);background:var(--soft);padding:22px 16px 40px}
-.lmt h4{margin:0 0 10px;padding:0 10px;font-size:15px;color:var(--mute);font-weight:500}
-.lmt .part{font-size:15px;color:var(--br);padding:16px 10px 6px;font-weight:700}
+.lmg{flex:1;min-height:0;display:grid;grid-template-columns:clamp(300px,26vw,420px) minmax(0,1fr)}
+.lmt{overflow:auto;border-inline-end:1px solid var(--line);background:var(--soft);padding:24px 18px 40px}
+.lmt h4{margin:0 0 12px;padding:0 10px;font-size:16px;color:var(--br);font-weight:700}
+.lmt .part{font-size:15.5px;color:var(--br);padding:18px 10px 6px;font-weight:700}
 .lmt ol{list-style:none;margin:0;padding:0;display:grid;gap:4px}
-.lmt button{width:100%;display:flex;gap:10px;align-items:center;text-align:start;background:none;border:0;color:var(--mute);font-size:18px;line-height:1.4;min-height:48px;padding:8px 12px;border-radius:9px}
+.lmt button{width:100%;display:flex;gap:12px;align-items:center;text-align:start;background:none;border:0;color:var(--mute);font-size:19px;line-height:1.4;min-height:52px;padding:9px 12px;border-radius:9px}
 .lmt button:hover{background:var(--bg);color:var(--ink)}
-.lmt button[aria-current=true]{background:#18244a;color:var(--ink);box-shadow:inset -3px 0 0 var(--acc)}
-.lmt button svg{flex:none;width:16px;height:16px;fill:var(--acc)}
-.lmb{overflow:auto;padding:28px clamp(18px,3vw,48px) 60px;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(20px,3vw,48px);align-items:start;align-content:start}
-.lmc1{display:grid;gap:18px;position:sticky;top:0}
+.lmt button[aria-current=true]{background:#172038;color:var(--ink);box-shadow:inset -3px 0 0 var(--acc)}
+.lmt button svg{flex:none;width:17px;height:17px;fill:var(--br)}
+.lmb{position:relative;overflow:auto;padding:0 clamp(18px,3vw,56px) 40vh;scroll-behavior:smooth}
+.lms{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(20px,3vw,56px);align-items:start;padding:36px 0;border-bottom:1px solid var(--line);scroll-margin-top:0}
+.lms:last-child{border-bottom:0}
+.lmc1{display:grid;gap:18px;position:sticky;top:20px}
+.lmc1 .lmn{font-size:14.5px;color:var(--br);font-weight:700}
 .lmb h2{font-size:clamp(26px,3vw,38px)}
 .lmb .how{padding:18px 22px}
 .lmb .kv p{font-size:18px}
 .lmb .how{font-size:18px}.lmb .how .pn{font-size:18px}
+.toc .part.fav{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.lmall{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--acc);background:transparent;color:var(--ink);border-radius:8px;font-size:13.5px;padding:5px 10px;min-height:34px}
+.lmall:hover{background:#172038}
+.lmall svg{width:15px;height:15px;fill:none;stroke:var(--acc);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 @media(max-width:860px){
  .lmg{grid-template-columns:minmax(0,1fr)}.lmt{display:none}
- .lmb{grid-template-columns:minmax(0,1fr)}.lmc1{position:static}
+ .lms{grid-template-columns:minmax(0,1fr)}.lmc1{position:static}
  .grid{grid-template-columns:minmax(0,1fr)}
  aside{display:none}
  body.tocopen{overflow:hidden}
@@ -250,6 +254,7 @@ body.ai .mx:not(.has) .dt{display:inline-flex}
   </main>
 </div>
 
+<div id="lm" role="dialog" aria-modal="true" aria-label="מצב למידה"><div class="lmh"><button class="cp" id="lmx">סגירה</button><span id="lmw"></span></div><div class="lmg"><nav class="lmt" id="lmt" aria-label="תוכן עניינים"></nav><div class="lmb" id="lmb"></div></div></div>
 <script>
 {
 /* כל שלב: t כותרת, e מה זה, w למה, m מתי, h צעדי איך, s הגדרות [שם, הסבר], n מה לא נכון היום. w/m/n יכולים להיות מערך של פסקאות */
@@ -402,7 +407,7 @@ const body=(x,p)=>{
  if(p==="h")return x.h.length>1?`<ol>${x.h.map(h=>`<li${/^בדיקה:/.test(h)?' class="chk"':""}>${fx(h)}</li>`).join("")}</ol>`:paras(x.h[0]);
  return `<ul class="set">${x.s.map(([a,b])=>`<li><span class="ui" dir="ltr">${esc(a)}</span>${fx(b)}</li>`).join("")}</ul>`};
 const FL=[];
-let n=0,toc=`<li class="part fav" hidden>שמורים</li><li class="fav" hidden><ol class="favl" id="favl"></ol></li>`,html="";
+let n=0,toc=`<li class="part fav" hidden><span>שמורים</span><button type="button" class="lmall" data-lm="*" title="כל השלבים השמורים במסך מלא">${FS}מצב למידה</button></li><li class="fav" hidden><ol class="favl" id="favl"></ol></li>`,html="";
 P.forEach(([part,chs])=>{
  toc+=`<li class="part">${part}</li>`;
  chs.forEach(c=>{n++;const cn=n,first=FL.length;
@@ -482,7 +487,7 @@ const upd=()=>{let T=0,D=0;
  document.getElementById("cnt").textContent=`תרגלת ${D} מתוך ${T}`;
  const fk=FL.map((f,i)=>[f,i]).filter(([f])=>sr[f.k]);
  document.querySelectorAll(".fav").forEach(x=>x.hidden=!fk.length);
- document.getElementById("favl").innerHTML=fk.map(([f,i])=>`<li><button class="ts st${typeof cur!=="undefined"&&i===cur?" cur":""}" data-go="${i}">${STAR}<span>${esc(f.c.s[f.j].t)}</span></button><button type="button" class="fvf" data-lm="${f.k}" aria-label="מצב למידה במסך מלא" title="מסך מלא">${FS}</button></li>`).join("")};
+ document.getElementById("favl").innerHTML=fk.map(([f,i])=>`<li><button class="ts st${typeof cur!=="undefined"&&i===cur?" cur":""}" data-go="${i}">${STAR}<span>${esc(f.c.s[f.j].t)}</span></button></li>`).join("")};
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-star]");if(!b)return;e.preventDefault();const k=b.dataset.star;
  if(sr[k]){delete sr[k];toast("הכוכב הוסר.")}else{sr[k]=1;toast("נשמר. תמצא אותו בתוכן העניינים, תחת \"שמורים\".")}
  saveS();upd();wr("progress/stars",{stars:sr})});
@@ -516,30 +521,39 @@ document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest
  else if(b.id==="prev")go(cur-1);
  else if(b.id==="tocb")document.body.classList.add("tocopen");
  else if(b.id==="tocx")closeToc()});
-/* מצב למידה: שלב מסומן בכוכב במסך מלא */
+/* מצב למידה: כל השלבים המסומנים בכוכב פרוסים במסך מלא */
 let lmk=null;
 const lmList=()=>FL.filter(f=>sr[f.k]).map(f=>f.k);
-const lmOpen=k=>{const f=FL.find(f=>f.k===k);if(!f)return;lmk=k;const x=f.c.s[f.j],L=lmList(),i=L.indexOf(k);
- document.getElementById("lmw").textContent=`פרק ${f.cn}, שלב ${f.j+1}`+(L.length>1&&i>=0?` · שמור ${i+1} מתוך ${L.length}`:"");
- document.getElementById("lmb").innerHTML=`<div class="lmc1"><h2>${esc(x.t)}</h2>`+(x.e?`<div class="kv"><b>מה זה</b><div>${paras(x.e)}</div></div>`:"")+`<div class="kv"><b>למה</b><div>${paras(x.w)}</div></div><div class="kv"><b>מתי</b><div>${paras(x.m)}</div></div></div>`+
-  `<div class="how"><h3 class="hh" style="margin-top:0">איך עושים</h3><div class="pn on">${body(x,"h")}</div>`+(x.s.length?`<h3 class="hh">הגדרות</h3><div class="pn on">${body(x,"s")}</div>`:"")+(x.n?`<p class="nw"><b>מה לא נכון היום:</b> ${fx(T(x.n))}</p>`:"")+`</div>`;
- document.getElementById("lmp").disabled=i<=0;document.getElementById("lmn").disabled=i<0||i>=L.length-1;
- let tt="",lc=null;L.forEach(q=>{const g=FL.find(f=>f.k===q);if(g.c!==lc){if(lc)tt+=`</ol>`;lc=g.c;tt+=`<div class="part">פרק ${g.cn}: ${esc(g.c.t)}</div><ol>`}tt+=`<li><button data-lm="${q}"${q===k?' aria-current="true"':""}>${STAR}<span>${esc(g.c.s[g.j].t)}</span></button></li>`});if(lc)tt+=`</ol>`;
- document.getElementById("lmt").innerHTML=`<h4>השלבים השמורים שלי</h4>`+(tt||`<p style="padding:0 10px;color:var(--mute)">אין שלבים שמורים</p>`);
- document.getElementById("lm").classList.add("on");document.body.classList.add("lmo");document.getElementById("lmb").scrollTop=0;const cb=document.querySelector('#lmt [aria-current]');if(cb)cb.scrollIntoView({block:"nearest"});
- try{history.replaceState(null,"","#learn-"+k)}catch(e){}};
+const lmCur=k=>{if(!k||k===lmk)return;lmk=k;document.querySelectorAll("#lmt [data-lm]").forEach(b=>b.setAttribute("aria-current",b.dataset.lm===k?"true":"false"));
+ const cb=document.querySelector('#lmt [aria-current="true"]');if(cb)cb.scrollIntoView({block:"nearest"});try{history.replaceState(null,"","#learn-"+k)}catch(e){}};
+const lmGo=k=>{const el=document.getElementById("lm-"+k);if(!el)return;document.getElementById("lmb").scrollTo({top:el.offsetTop,behavior:"smooth"});lmk=null;lmCur(k)};
+const lmOpen=k=>{const L=lmList();
+ if(!document.getElementById("lm").classList.contains("on")){
+  let tt="",bb="",lc=null;
+  L.forEach(q=>{const g=FL.find(f=>f.k===q),x=g.c.s[g.j];
+   if(g.c!==lc){if(lc)tt+=`</ol>`;lc=g.c;tt+=`<div class="part">פרק ${g.cn}: ${esc(g.c.t)}</div><ol>`}
+   tt+=`<li><button data-lm="${q}" aria-current="false">${STAR}<span>${esc(x.t)}</span></button></li>`;
+   bb+=`<section class="lms" id="lm-${q}"><div class="lmc1"><span class="lmn">פרק ${g.cn}, שלב ${g.j+1}</span><h2>${esc(x.t)}</h2>`+(x.e?`<div class="kv"><b>מה זה</b><div>${paras(x.e)}</div></div>`:"")+`<div class="kv"><b>למה</b><div>${paras(x.w)}</div></div><div class="kv"><b>מתי</b><div>${paras(x.m)}</div></div></div>`+
+    `<div class="how"><h3 class="hh" style="margin-top:0">איך עושים</h3><div class="pn on">${body(x,"h")}</div>`+(x.s.length?`<h3 class="hh">הגדרות</h3><div class="pn on">${body(x,"s")}</div>`:"")+(x.n?`<p class="nw"><b>מה לא נכון היום:</b> ${fx(T(x.n))}</p>`:"")+`</div></section>`});
+  if(lc)tt+=`</ol>`;
+  document.getElementById("lmt").innerHTML=`<h4>השלבים השמורים שלי</h4>`+(tt||`<p style="padding:0 10px;color:var(--mute)">אין שלבים שמורים. סמן שלב בכוכב כדי שיופיע כאן.</p>`);
+  document.getElementById("lmb").innerHTML=bb;
+  document.getElementById("lmw").textContent=L.length?`מצב למידה · ${L.length} שלבים שמורים`:"מצב למידה";
+  document.getElementById("lm").classList.add("on");document.body.classList.add("lmo");document.getElementById("lmb").scrollTop=0;lmk=null}
+ const t=k&&L.includes(k)?k:L[0];if(!t)return;
+ if(k===t)document.getElementById("lmb").scrollTop=document.getElementById("lm-"+t).offsetTop;lmCur(t)};
+document.getElementById("lmb").addEventListener("scroll",e=>{const c=e.currentTarget,y=c.scrollTop+c.clientHeight*.3;let k=null;
+ c.querySelectorAll(".lms").forEach(s=>{if(s.offsetTop<=y)k=s.id.slice(3)});if(c.scrollTop+c.clientHeight>=c.scrollHeight-2){const a=c.querySelectorAll(".lms");if(a.length&&a[a.length-1].offsetTop<c.scrollTop+c.clientHeight)k=k||a[a.length-1].id.slice(3)}if(k)lmCur(k)},{passive:true});
 const lmClose=()=>{lmk=null;document.getElementById("lm").classList.remove("on");document.body.classList.remove("lmo");try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}};
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("button");if(!b)return;
- if(b.dataset.lm){e.preventDefault();if(b.closest("aside"))closeToc();lmOpen(b.dataset.lm)}
- else if(b.id==="lmx")lmClose();
- else if(b.id==="lmp"||b.id==="lmn"){const L=lmList(),i=L.indexOf(lmk)+(b.id==="lmn"?1:-1);if(L[i])lmOpen(L[i])}});
-{const h=location.hash.match(/^#learn-(.+)$/);if(h&&SK[h[1]])lmOpen(h[1])}
-document.addEventListener("keydown",e=>{if(e.key==="Escape"){if(lmk)lmClose();else closeToc()}});
+ if(b.dataset.lm){e.preventDefault();const k=b.dataset.lm;if(b.closest("#lmt")){lmGo(k);return}if(b.closest("aside"))closeToc();lmOpen(k==="*"?null:k)}
+ else if(b.id==="lmx")lmClose()});
+{const h=location.hash.match(/^#learn(?:-(.+))?$/);if(h&&(!h[1]||SK[h[1]]))setTimeout(()=>lmOpen(h[1]||null),0)}
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){if(document.getElementById("lm").classList.contains("on"))lmClose();else closeToc()}});
 upd();
 {const i0=idxOf(pos.k);go(i0>=0?i0:0,true)}
 }
 </script>
-<div id="lm" role="dialog" aria-modal="true" aria-label="מצב למידה"><div class="lmh"><button class="cp" id="lmx">סגירה</button><span id="lmw"></span><button class="cp" id="lmp">הקודם</button><button class="cp" id="lmn">הבא</button></div><div class="lmg"><nav class="lmt" id="lmt" aria-label="תוכן עניינים"></nav><div class="lmb" id="lmb"></div></div></div>
 <div id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
