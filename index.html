@@ -473,7 +473,7 @@ const go=(i,quiet)=>{cur=Math.max(0,Math.min(N,i));const f=FL[cur];
 const closeToc=()=>document.body.classList.remove("tocopen");
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("button");if(!b)return;
  if(b.dataset.go!==undefined){go(+b.dataset.go);closeToc()}
- else if(b.dataset.op){const t=b.closest(".tch"),f=FL[cur];if(f&&f.c.id===b.dataset.op&&t.classList.contains("op"))op(t,false);else go(+t.querySelector(".ts").dataset.go)}
+ else if(b.dataset.op){const t=b.closest(".tch"),on=!t.classList.contains("op");document.querySelectorAll(".tch.op").forEach(x=>op(x,false));op(t,on)}
  else if(b.dataset.hw){const v=document.getElementById("hw-"+b.dataset.hw),on=v.hidden;v.hidden=!on;b.setAttribute("aria-expanded",on?"true":"false")}
  else if(b.dataset.dp){const m=document.getElementById("mx-"+b.dataset.dp),on=!m.classList.contains("open");m.classList.toggle("open",on);b.setAttribute("aria-expanded",on?"true":"false")}
  else if(b.dataset.nx||b.id==="next")go(cur+1);
