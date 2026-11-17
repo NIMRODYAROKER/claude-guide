@@ -86,6 +86,16 @@ main{padding:28px 0 60px}
 .sh input:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .step.dn .sh span{color:var(--mute);text-decoration:line-through;text-decoration-color:var(--acc)}
 .bd{padding:14px 16px 18px;display:grid;gap:12px}
+.kv{display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px;align-items:baseline}
+.kv b{font-size:14px;color:var(--br)}.kv p{margin:0;font-size:17px}
+.acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+.deep{background:transparent;color:var(--acc);border:1px dashed var(--acc)}
+.deep[aria-expanded=true]{background:#2a1a1d}
+.hb[aria-expanded=true]{background:#8f3443;border-color:#8f3443}
+.how{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--soft)}
+.how .set li{background:var(--bg)}
+.hh{font-size:14px;font-weight:700;color:var(--br);margin:14px 0 6px}
+.nw{margin:12px 0 0;font-size:15px;color:var(--acc)}.nw b{font-weight:700}
 .sec h3,.mh{font-size:14px;font-weight:700;color:var(--br);margin:0 0 4px}
 .sec.now h3{color:var(--acc)}
 .sw{display:grid;gap:8px;justify-items:start}.sw .sv{justify-self:stretch}
@@ -121,10 +131,10 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--acc);outline-offset
 .cp{background:transparent;color:var(--ink);border:1px solid var(--line)}
 .red{background:var(--acc);color:#fff;border:1px solid var(--acc)}
 .dlg{display:none;gap:8px;align-items:center;flex-wrap:wrap}.dlg.on{display:flex}
-.mx{display:none;gap:10px;border-top:1px dashed var(--line);padding-top:12px;margin-top:4px}
-body.ai .mx,.mx.has,.mx.hq{display:grid}
+.mx{display:none;gap:10px;border:1px dashed var(--acc);border-radius:10px;padding:12px 14px}
+.mx.open{display:grid}
 .dt{display:none;justify-self:start;align-items:center}
-body.ai .dt,.mx.has .dt{display:inline-flex}
+body.ai .mx:not(.has) .dt{display:inline-flex}
 .det{border:1px solid var(--line);border-inline-start:3px solid var(--acc);border-radius:10px;padding:12px 16px;background:var(--soft);font-size:16px}
 .det h4,.qi h4,.out h4{margin:14px 0 4px;font-size:16px;color:var(--br)}
 .det p,.qi p,.out p{margin:0 0 8px}
@@ -161,7 +171,7 @@ body.ai .dt,.mx.has .dt{display:inline-flex}
 <body>
 <header class="top"><div class="in">
   <h1>המדריך המלא <span>לקלוד</span></h1>
-  <p>כל פיצ'ר מוסבר עד הלחיצה: איפה הכפתור, מה כל הגדרה עושה, ומתי להשתמש בזה. שמות הכפתורים כתובים כמו שהם מופיעים באפליקציה, באנגלית.</p>
+  <p>כל פיצ'ר בשלבים קצרים. שמות הכפתורים באנגלית, כמו באפליקציה.</p>
   <div class="pb"><div class="tr"><div id="bar"></div></div><span id="cnt">0/0</span></div>
   <button class="cp tocb" id="tocb" aria-controls="side">תוכן עניינים</button>
 </div></header>
@@ -198,10 +208,10 @@ body.ai .dt,.mx.has .dt{display:inline-flex}
 /* כל שלב: t כותרת, w למה, m מתי, h צעדי איך, s הגדרות [שם, הסבר], n מה לא נכון היום. w/m/n יכולים להיות מערך של פסקאות */
 const P=[
 ["להכיר את האפליקציה",[
-{id:"map",t:"המסך של קלוד",i:"לפני הכול: איפה נמצא כל דבר. אחרי הפרק הזה תדע לאן ללחוץ בכל שאר המדריך.",s:[
-{t:"סרגל הצד",w:["סרגל הצד הוא עמודה צרה בצד של המסך. הוא כמו התפריט הראשי של קלוד: כל מה שלא קשור לשיחה שפתוחה עכשיו נמצא בו.","כשאתה סוגר שיחה, היא לא נעלמת. היא נשמרת, ומגיעים אליה דרך הסרגל. גם הפרויקטים, הארטיפקטים (כמו המדריך הזה) והמשימות המתוזמנות נפתחים רק משם.","רוב השלבים במדריך מתחילים במילים \"סרגל הצד >\". אם אתה יודע איפה הסרגל ומה יש בו, כל שאר ההוראות יהיו קלות יותר."],m:["כשאתה רוצה להתחיל שיחה חדשה על נושא אחר.","כשאתה מחפש שיחה ישנה, למשל השיחה שבה בנית את HomeTails.","כשאתה רוצה להיכנס לפרויקט, לפתוח ארטיפקט או לבדוק משימה מתוזמנת.","כשאתה רוצה להגיע להגדרות. הכניסה אליהן נמצאת בתחתית הסרגל."],h:["פותחים את Claude: במחשב באתר claude.ai או באפליקציית המחשב, ובטלפון באפליקציה.","במחשב: מסתכלים על הצד של המסך. אם רואים רשימה של שיחות, הסרגל פתוח. אם רואים רק פס צר עם סמלים קטנים, או לא רואים כלום, הסרגל סגור. לוחצים על סמל הסרגל בפינה העליונה, והוא נפתח.","בטלפון: הסרגל מוסתר. לוחצים על סמל שלושת הקווים בפינה העליונה, והסרגל נפתח מהצד.","עוברים עם העיניים מלמעלה למטה ומזהים את הכפתורים: `New chat`, `Projects`, `Artifacts`, `Scheduled`, `Customize`. הסדר יכול להיות קצת שונה בין המחשב לטלפון, ובטלפון חלק מהם אולי לא יופיעו. זה בסדר.","מתחת לכפתורים יש רשימת שיחות. השיחה האחרונה נמצאת למעלה. לוחצים על שיחה ישנה כדי לפתוח אותה, ואחר כך חוזרים.","לוחצים על `Artifacts` ומחפשים ברשימה את \"המדריך המלא לקלוד\".","בתחתית הסרגל מופיע השם שלך או ראשי התיבות שלך. משם נכנסים להגדרות (זה השלב השלישי בפרק). עכשיו רק מזהים איפה זה, בלי ללחוץ.","בטלפון: כדי לסגור את הסרגל בלי לבחור כלום, לוחצים על החלק של המסך שמחוץ לסרגל.","בדיקה: אם הצלחת לפתוח את הסרגל, למצוא את המדריך הזה תחת `Artifacts`, ולפתוח שיחה ישנה מהרשימה, סיימת את השלב."],s:[["New chat","פותח שיחה חדשה וריקה. השיחה הקודמת לא נמחקת. היא נשמרת ברשימת השיחות."],["Projects","כל הפרויקטים שלך. פרויקט הוא תיקייה לשיחות על נושא אחד, עם הוראות וקבצים משלו (פרק 9)."],["Artifacts","כל הדפים והכלים שקלוד בנה לך, כמו המדריך הזה. מגיעים אליהם בלי לחפש את השיחה שבה הם נוצרו (פרק 11)."],["Scheduled","משימות שקלוד מריץ לבד לפי לוח זמנים, למשל פעם בשבוע (פרק 19)."],["Customize","סקילים וחיבורים: יכולות נוספות לקלוד, וחיבור לשירותים כמו Gmail וגיטהאב (פרקים 10 ו-14)."],["רשימת השיחות","כל השיחות שלך, מהחדשה לישנה. השם של כל שיחה נקבע לבד לפי מה שכתוב בה, אז לפעמים הוא לא השם שזכרת."]],n:"אם כדי לחזור לשיחה ישנה או לארטיפקט אתה מחפש קישור ששמרת במקום אחר, ולא נכנס דרך הסרגל, השלב הזה עוד לא אצלך."},
-{t:"שורת ההודעה",w:["שורת ההודעה היא התיבה בתחתית השיחה, שבה אתה כותב לקלוד. מסביבה יש כמה כפתורים קטנים, ורוב הפיצ'רים של קלוד מתחילים מהם: צירוף תמונה, דיבור, בחירת מודל ועוד.","מי שמשתמש רק בתיבת הטקסט ובכפתור השליחה מפספס דברים שחוסכים הרבה זמן. למשל: לצרף צילום מסך במקום לתאר באג, או לדבר במקום להקליד הודעה ארוכה בטלפון.","בשלב הזה לא צריך להשתמש בכל כפתור. רק לדעת מה קיים ואיפה. הפרקים הבאים מסבירים כל כפתור לעומק."],m:["בכל שיחה. זה המקום שבו אתה עובד הכי הרבה.","במיוחד כשקשה להסביר משהו במילים: כשיש תמונה, קובץ, או הרבה מה להגיד."],h:["פותחים שיחה חדשה עם `New chat`.","מוצאים את התיבה שבה כותבים, בתחתית המסך. לא כותבים כלום עדיין.","מוצאים את הכפתור `+` ליד התיבה ולוחצים עליו. נפתח תפריט. קוראים מה יש בו: צירוף תמונות וקבצים, חיבורים, סגנון וזיכרון. לא בוחרים כלום. סוגרים בלחיצה מחוץ לתפריט.","מקלידים / (לוכסן) בתור התו הראשון בתיבה. נפתח תפריט קצר של סקילים וחיבורים. מוחקים את הלוכסן, והתפריט נסגר.","מוצאים את סמל המיקרופון. זו הכתבה: מדברים, והדיבור נכתב כטקסט בתיבה.","מוצאים את סמל גל הקול. זה מצב קול: שיחה מדוברת, וקלוד עונה בקול. לא צריך להפעיל אותו עכשיו (פרק 6).","מוצאים את שם המודל, ליד כפתור השליחה, ולוחצים עליו. נפתח תפריט עם רשימת מודלים ורמת מאמץ. לא משנים כלום, וסוגרים (פרק 4).","בדיקה: אם הצלחת לפתוח את התפריט של `+`, את התפריט של / ואת התפריט של שם המודל, ולסגור כל אחד בלי לשנות כלום, סיימת את השלב."],s:[["+","פותח תפריט: צירוף תמונות וקבצים, הוספה מגיטהאב, חיבורים, `Research`, סגנון, והפעלה או כיבוי של זיכרון לשיחה הזאת."],["/","כשמקלידים / בתחילת ההודעה, נפתח תפריט מהיר של סקילים וחיבורים. ככה קוראים לסקיל בשם."],["מיקרופון","הכתבה: אתה מדבר, והדיבור נכתב כטקסט בתיבה. לפני השליחה אפשר לקרוא ולתקן. קלוד עונה בכתב, כרגיל."],["גל קול","מצב קול: שיחה מדוברת. אתה מדבר, וקלוד עונה בקול (פרק 6)."],["שם המודל","בחירת מודל, רמת מאמץ וחשיבה מורחבת. השינוי חל מהתשובה הבאה (פרק 4)."],["כפתור השליחה","שולח את ההודעה. במחשב אפשר גם ללחוץ Enter. כדי לרדת שורה בלי לשלוח, לוחצים Shift+Enter."]],n:"אם אתה משתמש רק בתיבת הטקסט ובכפתור השליחה, ולא יודע מה פותחים `+` ושם המודל, השלב הזה עוד לא אצלך."},
-{t:"ההגדרות",w:["בהגדרות קובעים דברים שחלים על כל השיחות, ולא רק על השיחה שפתוחה עכשיו.","יש שם שלושה דברים חשובים: מה קלוד יודע עליך (העדפות וזיכרון), מה מותר לקלוד לעשות (יכולות וחיבורים), וכמה נשאר לך מהמגבלה של המנוי.","כשמשהו לא עובד כמו שציפית, למשל קלוד לא זוכר משהו או לא מצליח ליצור קובץ, הרבה פעמים הסיבה היא הגדרה. מי שמכיר את המסך הזה מוצא את הבעיה בדקה."],m:["פעם אחת עכשיו, רק כדי להכיר.","כשמשהו לא עובד כמו שציפית.","לפני עבודה גדולה, כדי לבדוק כמה נשאר מהמגבלה."],h:["פותחים את סרגל הצד (בטלפון: שלושת הקווים).","בתחתית הסרגל, לוחצים על השם שלך או על ראשי התיבות. נפתח תפריט קטן.","בוחרים `Settings`. נפתח מסך ההגדרות עם רשימת לשוניות. במחשב היא בצד, ובטלפון היא רשימה שגוללים בה.","לוחצים על הלשוניות אחת אחרי השנייה, וקוראים את הכותרות. לא משנים שום מתג, ולא לוחצים על כפתורי שמירה או מחיקה.","מחפשים את הלשוניות שמופיעות בחלק \"הגדרות\" של השלב הזה. השמות יכולים להיות קצת שונים לפי הגרסה, למשל `General` או `Profile`. אם לשונית לא מופיעה, זה בסדר.","נכנסים ל-`Usage` ומסתכלים כמה השתמשת, ומתי המגבלה מתאפסת. אם לא מוצאים את `Usage` בטלפון, בודקים במחשב.","יוצאים מההגדרות וחוזרים לשיחה: בכפתור החזרה, או בסגירת המסך.","בדיקה: אם הצלחת להגיע ל-`Settings`, לעבור על כל הלשוניות, ולמצוא ב-`Usage` מתי המגבלה שלך מתאפסת, בלי לשנות שום הגדרה, סיימת את השלב."],s:[["General / Profile","השם שלך, ושדה ההעדפות האישיות שקלוד קורא בתחילת כל שיחה (פרק 2)."],["Your Claude / Memory","הזיכרון: מה קלוד זוכר עליך, איך רואים ומתקנים, והפעלה וכיבוי (פרק 8). השם תלוי בגרסה."],["Capabilities","יכולות שקלוד יכול להפעיל, כמו הרצת קוד ויצירת קבצים. אם קלוד לא מצליח ליצור קובץ, בודקים כאן."],["Connectors","השירותים שחיברת, כמו Gmail וגיטהאב, ומה מותר לקלוד לעשות בכל אחד (פרק 14)."],["Usage","כמה השתמשת ממגבלת 5 השעות ומהמגבלה השבועית, ומתי כל אחת מתאפסת (פרק 2, שלב 3)."]],n:"אם אף פעם לא נכנסת להגדרות, או שאתה לא יודע מתי המגבלה שלך מתאפסת, השלב הזה עוד לא אצלך."}
+{id:"map",t:"המסך של קלוד",i:"איפה נמצא כל דבר באפליקציה.",s:[
+{t:"סרגל הצד",w:"שם נמצא כל מה שלא בשיחה הנוכחית: שיחות ישנות, פרויקטים, ארטיפקטים.",m:"כשמחפשים שיחה ישנה, פרויקט, או את המדריך הזה.",h:["במחשב: הסרגל בצד. אם הוא סגור, לוחצים על סמל הסרגל בפינה העליונה.","בטלפון: לוחצים על שלושת הקווים בפינה העליונה.","מוצאים את הכפתורים: `New chat`, `Projects`, `Artifacts`, `Scheduled`, `Customize`.","מתחתם: רשימת השיחות. החדשה למעלה.","בדיקה: מצאת את המדריך הזה תחת `Artifacts`? סיימת."],s:[["New chat","שיחה חדשה."],["Projects","תיקייה לכל נושא (פרק 9)."],["Artifacts","דפים שקלוד בנה לך (פרק 11)."],["Scheduled","משימות שרצות לבד (פרק 19)."],["Customize","סקילים וחיבורים (פרקים 10, 14)."]],n:"מחפש קישורים ישנים במקום להיכנס דרך הסרגל."},
+{t:"שורת ההודעה",w:"רוב הפיצ'רים מתחילים מהכפתורים שליד התיבה שבה כותבים.",m:"בכל שיחה. במיוחד כשיש תמונה, קובץ, או הרבה מה להגיד.",h:["לוחצים `+` ורואים מה יש. סוגרים בלי לבחור.","מקלידים / בתחילת התיבה. נפתח תפריט סקילים. מוחקים.","לוחצים על שם המודל, ליד כפתור השליחה. סוגרים בלי לשנות.","מזהים את סמל המיקרופון ואת סמל גל הקול.","בדיקה: פתחת וסגרת את שלושת התפריטים? סיימת."],s:[["+","קבצים, תמונות, חיבורים, סגנון."],["/","תפריט סקילים מהיר."],["מיקרופון","מדברים, וזה נכתב כטקסט."],["גל קול","שיחה בקול (פרק 6)."],["שם המודל","מודל ורמת מאמץ (פרק 4)."]],n:"משתמש רק בתיבה ובכפתור השליחה."},
+{t:"ההגדרות",w:"שם קובעים דברים לכל השיחות, ורואים כמה נשאר מהמגבלה.",m:"פעם אחת כדי להכיר, ושוב כשמשהו לא עובד.",h:["בתחתית סרגל הצד, לוחצים על השם שלך.","בוחרים `Settings`.","עוברים על הלשוניות. לא משנים כלום.","נכנסים ל-`Usage` ובודקים מתי המגבלה מתאפסת.","בדיקה: מצאת מתי המגבלה שלך מתאפסת? סיימת."],s:[["General / Profile","השם שלך והעדפות לכל שיחה (פרק 2)."],["Your Claude / Memory","מה קלוד זוכר עליך (פרק 8)."],["Capabilities","יכולות כמו יצירת קבצים."],["Connectors","שירותים מחוברים (פרק 14)."],["Usage","כמה נשאר מהמגבלה."]],n:"לא יודע מתי המגבלה שלך מתאפסת."}
 ]},
 {id:"settings",t:"הגדרות שעושים פעם אחת",i:"שלוש הגדרות קצרות שמשפרות כל שיחה מעכשיו והלאה.",s:[
 {t:"העדפות אישיות לכל השיחות",w:"מה שכותבים כאן קלוד קורא בתחילת כל שיחה. ככה לא צריך לכתוב בכל פעם \"תענה בעברית ותסביר פשוט\".",m:"פעם אחת עכשיו, ולעדכן כשמשהו משתנה.",h:["`Settings` > `General` (או `Profile`, לפי הגרסה).","מוצאים את השדה הגדול שבו שואלים אילו העדפות אישיות קלוד צריך לקחת בחשבון. בגרסאות חדשות הוא נקרא `Instructions for Claude`.","כותבים 3 עד 5 שורות קצרות: מי אתה, באיזו שפה לענות, ואיך להסביר.","שומרים."],s:[["מה לכתוב","\"אני מתחיל בבניית אתרים ולא מבין קוד. תענה בעברית, תסביר כל שלב בפשטות, ותעשה בעצמך כל מה שאפשר.\""],["מה לא לכתוב","דברים שמשתנים כל שבוע, ופרטים של אתר אחד. אלה שייכים לפרויקט."]],n:"אתה חוזר על אותן בקשות של סגנון בתחילת כל שיחה."},
@@ -347,10 +357,11 @@ P.forEach(([part,chs])=>{
   toc+=`<li class="tch" data-c="${c.id}"><button class="tb" data-op="${c.id}" aria-expanded="false"><b>${cn}</b><span>${esc(c.t)}</span><small id="tc-${c.id}"></small></button><ol class="tst">${c.s.map((x,j)=>`<li><button class="ts" data-go="${first+j}" data-tk="${c.id}-${j}"><i></i><span>${esc(x.t)}</span></button></li>`).join("")}</ol></li>`;
   html+=`<section class="ch" id="${c.id}"><h2><span class="no">${cn}</span>${esc(c.t)}</h2>${c.i?`<p class="intro">${fx(c.i)}</p>`:""}<div class="dots" role="group" aria-label="שלבי הפרק">${c.s.map((x,j)=>`<button class="dot" data-go="${first+j}" data-dk="${c.id}-${j}" aria-label="שלב ${j+1}: ${escA(x.t)}" title="${escA(x.t)}">${j+1}</button>`).join("")}</div><ol class="sp">${c.s.map((x,j)=>{const k=c.id+"-"+j,ps=PARTS.filter(([p])=>has(x,p));
    return `<li class="step${st[k]?" dn":""}" id="s-${k}"><label class="sh"><input type="checkbox" data-k="${k}" ${st[k]?"checked":""}><span>${esc(x.t)}</span></label><div class="bd">`+
-   ps.filter(([p])=>p!=="s").map(([p,l])=>`<div class="pn on sec${p==="n"?" now":""}"><h3>${l}</h3>${body(x,p)}</div>`).join("")+
-   (x.s.length?`<div class="sw"><button class="cp sb" data-sb="${k}" aria-expanded="false">הגדרות (${x.s.length})</button><div class="pn on sv" hidden>${body(x,"s")}</div></div>`:"")+
-   `<div class="mx" id="mx-${k}"><h3 class="mh">לא הבנתי משהו?</h3><button class="cp dt" data-d="${k}">הסבר לעומק</button><div class="out" hidden></div><div class="det" hidden></div><div class="qa"></div><form class="ask" data-a="${k}"><input maxlength="400" placeholder="מה לא ברור? התשובה תישמר כאן בשלב" aria-label="שאלה על השלב"><button class="red">לשאול</button></form></div>`+
-   `<p class="offai">הסבר לעומק ושאלות לקלוד עובדים כשפותחים את המדריך <a href="https://claude.ai/artifact/RGtxABukLj8jH8qJwtPUes">בתוך Claude</a>. שם גם נשמרות התשובות.</p></div></li>`}).join("")}</ol></section>`})});
+   `<div class="kv"><b>למה</b><div>${paras(x.w)}</div></div><div class="kv"><b>מתי</b><div>${paras(x.m)}</div></div>`+
+   `<div class="acts"><button class="red hb" data-hw="${k}" aria-expanded="false">איך עושים</button><button class="deep" data-dp="${k}" aria-expanded="false">הסבר מפורט</button></div>`+
+   `<div class="how" id="hw-${k}" hidden><div class="pn on">${body(x,"h")}</div>`+(x.s.length?`<h3 class="hh">הגדרות</h3><div class="pn on">${body(x,"s")}</div>`:"")+(x.n?`<p class="nw"><b>מה לא נכון היום:</b> ${fx(T(x.n))}</p>`:"")+`</div>`+
+   `<div class="mx" id="mx-${k}"><button class="cp dt" data-d="${k}">לכתוב לי הסבר מפורט</button><div class="out" hidden></div><div class="det" hidden></div><div class="qa"></div><form class="ask" data-a="${k}"><input maxlength="400" placeholder="מה לא ברור? התשובה תישמר כאן" aria-label="שאלה על השלב"><button class="red">לשאול</button></form>`+
+   `<p class="offai">ההסבר המפורט והשאלות עובדים כשפותחים את המדריך <a href="https://claude.ai/artifact/RGtxABukLj8jH8qJwtPUes">בתוך Claude</a>.</p></div></div></li>`}).join("")}</ol></section>`})});
 toc+=`<li class="part">סיכום</li><li><button class="tb tsum" data-go="${FL.length}"><b></b><span>לזכור</span></button></li>`;
 document.getElementById("toc").innerHTML=toc;
 document.getElementById("chs").innerHTML=html;
@@ -369,8 +380,8 @@ const md=s=>{let o="",L=null;const cl=()=>{if(L){o+="</"+L+">";L=null}};
 const rn=k=>{const n=NOTE[k]||{},mx=document.getElementById("mx-"+k);if(!mx)return;const d=mx.querySelector(".det"),b=mx.querySelector(".dt"),qa=n.qa||[];
  mx.classList.toggle("has",!!n.detail);mx.classList.toggle("hq",qa.length>0);
  d.innerHTML=n.detail?'<div class="dh"><b>הסבר מפורט</b>'+(ask?'<button class="lk" data-re="'+k+'">לכתוב מחדש</button>':"")+"</div>"+md(n.detail):"";
- d.hidden=!(n.detail&&OPEN[k]);
- b.textContent=n.detail?(OPEN[k]?"להסתיר את ההסבר המפורט":"להציג את ההסבר המפורט"):"הסבר לעומק";
+ d.hidden=!n.detail;
+ const dp=document.querySelector(`[data-dp="${k}"]`);if(dp)dp.textContent=(n.detail||qa.length)?"הסבר מפורט (שמור)":"הסבר מפורט";
  mx.querySelector(".qa").innerHTML=qa.map((x,i)=>'<div class="qi"><div class="qq"><span><b>שאלת:</b> '+esc(String(x.q||""))+'</span><button class="lk" data-del="'+k+'" data-i="'+i+'">מחיקה</button></div>'+md(x.a)+"</div>").join("")};
 const RULES="אתה כותב חלק ממדריך אישי בעברית ללמידת Claude, האפליקציה של Anthropic (באתר claude.ai, באפליקציית המחשב ובטלפון). הקורא לא מבין בטכנולוגיה: כתוב בעברית פשוטה, במשפטים קצרים, ותסביר כל לחיצה. שמות של כפתורים, תפריטים והגדרות כתוב באנגלית בדיוק כמו באפליקציה, בין גרשיים הפוכים, למשל `Settings`. אל תמציא: אם אתה לא בטוח בשם של כפתור, או שהוא תלוי בגרסה, כתוב את זה במפורש והצע לחפש את שם הפיצ'ר ב-support.claude.com. בלי אימוג'י ובלי הקדמות. פורמט: כותרת משנה בשורה שמתחילה ב-\"## \", צעדים בשורות \"1. \", נקודות בשורות \"- \", ו-**מודגש** רק למילה חשובה.";
 const DET="המשימה: כתוב הסבר מפורט ככל האפשר לשלב הזה. כסה כל הגדרה, קטנה או גדולה, שקשורה אליו: איפה היא נמצאת במחשב ובטלפון, מה כל אפשרות בה עושה, מה ברירת המחדל, ומתי לבחור כל אפשרות. אחר כך טעויות נפוצות ואיך לבדוק שזה עבד. השתמש בכותרות: ## איפה זה נמצא, ## צעד אחר צעד, ## כל ההגדרות, ## טעויות נפוצות, ## איך לבדוק שזה עבד.";
@@ -438,7 +449,8 @@ const closeToc=()=>document.body.classList.remove("tocopen");
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("button");if(!b)return;
  if(b.dataset.go!==undefined){go(+b.dataset.go);closeToc()}
  else if(b.dataset.op){const t=b.closest(".tch");op(t,!t.classList.contains("op"))}
- else if(b.dataset.sb){const v=b.nextElementSibling,on=v.hidden;v.hidden=!on;b.setAttribute("aria-expanded",on?"true":"false")}
+ else if(b.dataset.hw){const v=document.getElementById("hw-"+b.dataset.hw),on=v.hidden;v.hidden=!on;b.setAttribute("aria-expanded",on?"true":"false")}
+ else if(b.dataset.dp){const m=document.getElementById("mx-"+b.dataset.dp),on=!m.classList.contains("open");m.classList.toggle("open",on);b.setAttribute("aria-expanded",on?"true":"false")}
  else if(b.dataset.nx||b.id==="next")go(cur+1);
  else if(b.id==="prev")go(cur-1);
  else if(b.id==="tocb")document.body.classList.add("tocopen");
