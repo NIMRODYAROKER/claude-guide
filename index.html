@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="color-scheme" content="dark">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>המדריך המלא לקלוד</title>
+<title>המדריך המלא ל-Claude</title>
 <meta name="description" content="מדריך אישי בעברית ללמידת Claude, שלב אחרי שלב">
 <meta property="og:type" content="website">
-<meta property="og:title" content="המדריך המלא לקלוד">
+<meta property="og:title" content="המדריך המלא ל-Claude">
 <meta property="og:description" content="ללמוד את Claude שלב אחרי שלב, בעברית ובפשטות">
 <meta property="og:url" content="https://nimrodyaroker.github.io/claude-guide/">
 <meta property="og:image" content="https://nimrodyaroker.github.io/claude-guide/og.jpg">
@@ -15,7 +15,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="he_IL">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="המדריך המלא לקלוד">
+<meta name="twitter:title" content="המדריך המלא ל-Claude">
 <meta name="twitter:description" content="ללמוד את Claude שלב אחרי שלב, בעברית ובפשטות">
 <meta name="twitter:image" content="https://nimrodyaroker.github.io/claude-guide/og.jpg">
 <link rel="icon" href="favicon.ico" sizes="any">
@@ -50,6 +50,11 @@ a{color:var(--acc)}
 .top .in,.grid{max-width:1120px;margin:0 auto}
 .top h1{font-size:clamp(34px,5vw,50px)}
 .top h1 span{color:var(--acc)}
+.top h1 span.en{font-family:Heebo,Arial,sans-serif;letter-spacing:.5px;text-shadow:0 0 22px rgba(52,209,122,.45);unicode-bidi:isolate}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(rgba(52,209,122,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(52,209,122,.045) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:radial-gradient(ellipse 80% 70% at 50% 30%,#000 30%,transparent 85%);mask-image:radial-gradient(ellipse 80% 70% at 50% 30%,#000 30%,transparent 85%)}
+.top{position:relative}.top::after{content:"";position:absolute;inset-inline:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,var(--acc),transparent);opacity:.55}
+#lm::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(52,209,122,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(52,209,122,.04) 1px,transparent 1px);background-size:44px 44px}
+.lmh,.lmg{position:relative}
 .top p{color:var(--mute);max-width:66ch;margin:14px 0 0;font-size:17px}
 .pb{display:flex;align-items:center;gap:14px;margin-top:22px;max-width:520px}
 .pb .tr{flex:1;height:6px;background:var(--line);border-radius:6px;overflow:hidden}
@@ -221,7 +226,7 @@ body.ai .mx:not(.has) .dt{display:inline-flex}
 </head>
 <body>
 <header class="top"><div class="in">
-  <h1>המדריך המלא <span>לקלוד</span></h1>
+  <h1>המדריך המלא ל<span class="en">Claude</span></h1>
   <p>כל פיצ'ר בשלבים קצרים. שמות הכפתורים באנגלית, כמו באפליקציה.</p>
   <div class="pb"><div class="tr"><div id="bar"></div></div><span id="cnt">0/0</span></div>
   <button class="cp tocb" id="tocb" aria-controls="side">תוכן עניינים</button>
