@@ -63,6 +63,13 @@ aside h4{margin:0;font-size:13px;color:var(--mute);font-weight:500}
 .ts i{flex:none;width:10px;height:10px;border-radius:50%;border:1.5px solid var(--br)}
 .ts.dn i{background:var(--br)}
 .ts.cur{color:var(--acc);font-weight:700}.ts.cur i{border-color:var(--acc)}
+.ts svg{flex:none;width:13px;height:13px;fill:var(--acc);display:none;margin-inline-start:auto}
+.ts.st svg{display:block}
+.favl{list-style:none;margin:0 0 4px;padding:0;display:grid;gap:1px}.favl .ts svg{margin:0}
+.star{margin-inline-start:auto;flex:none;width:40px;height:40px;min-height:40px;padding:0;border:1px solid var(--line);border-radius:9px;background:transparent;color:var(--mute);display:grid;place-content:center}
+.star:hover{color:var(--ink);border-color:var(--br)}
+.star svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round}
+.star[aria-pressed=true]{color:var(--acc);border-color:var(--acc)}.star[aria-pressed=true] svg{fill:currentColor}
 .tocb{display:none}
 main{padding:28px 0 60px}
 .ch{display:none;padding:16px 0 20px}
@@ -336,6 +343,11 @@ const P=[
 const KEY="claude-guide-v5";let st={};
 try{st=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){st={}}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
+/* כוכבים: שלבים ששמרתי לעצמי */
+const STAR='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg>';
+const SKEY="claude-guide-stars";let sr={};
+try{sr=JSON.parse(localStorage.getItem(SKEY)||"{}")||{}}catch(e){sr={}}
+const saveS=()=>{try{localStorage.setItem(SKEY,JSON.stringify(sr))}catch(e){}};
 const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
 const escA=s=>esc(s).replace(/"/g,"&quot;");
 const fx=s=>esc(s).replace(/`([^`]+)`/g,'<span class="ui" dir="ltr">$1</span>');
@@ -349,14 +361,14 @@ const body=(x,p)=>{
  if(p==="h")return x.h.length>1?`<ol>${x.h.map(h=>`<li${/^בדיקה:/.test(h)?' class="chk"':""}>${fx(h)}</li>`).join("")}</ol>`:paras(x.h[0]);
  return `<ul class="set">${x.s.map(([a,b])=>`<li><span class="ui" dir="ltr">${esc(a)}</span>${fx(b)}</li>`).join("")}</ul>`};
 const FL=[];
-let n=0,toc="",html="";
+let n=0,toc=`<li class="part fav" hidden>שמורים</li><li class="fav" hidden><ol class="favl" id="favl"></ol></li>`,html="";
 P.forEach(([part,chs])=>{
  toc+=`<li class="part">${part}</li>`;
  chs.forEach(c=>{n++;const cn=n,first=FL.length;
   c.s.forEach((x,j)=>FL.push({k:c.id+"-"+j,c,cn,j}));
-  toc+=`<li class="tch" data-c="${c.id}"><button class="tb" data-op="${c.id}" aria-expanded="false"><b>${cn}</b><span>${esc(c.t)}</span><small id="tc-${c.id}"></small></button><ol class="tst">${c.s.map((x,j)=>`<li><button class="ts" data-go="${first+j}" data-tk="${c.id}-${j}"><i></i><span>${esc(x.t)}</span></button></li>`).join("")}</ol></li>`;
+  toc+=`<li class="tch" data-c="${c.id}"><button class="tb" data-op="${c.id}" aria-expanded="false"><b>${cn}</b><span>${esc(c.t)}</span><small id="tc-${c.id}"></small></button><ol class="tst">${c.s.map((x,j)=>`<li><button class="ts" data-go="${first+j}" data-tk="${c.id}-${j}"><i></i><span>${esc(x.t)}</span>${STAR}</button></li>`).join("")}</ol></li>`;
   html+=`<section class="ch" id="${c.id}"><h2><span class="no">${cn}</span>${esc(c.t)}</h2>${c.i?`<p class="intro">${fx(c.i)}</p>`:""}<div class="dots" role="group" aria-label="שלבי הפרק">${c.s.map((x,j)=>`<button class="dot" data-go="${first+j}" data-dk="${c.id}-${j}" aria-label="שלב ${j+1}: ${escA(x.t)}" title="${escA(x.t)}">${j+1}</button>`).join("")}</div><ol class="sp">${c.s.map((x,j)=>{const k=c.id+"-"+j,ps=PARTS.filter(([p])=>has(x,p));
-   return `<li class="step${st[k]?" dn":""}" id="s-${k}"><label class="sh"><input type="checkbox" data-k="${k}" ${st[k]?"checked":""}><span>${esc(x.t)}</span></label><div class="bd">`+
+   return `<li class="step${st[k]?" dn":""}" id="s-${k}"><label class="sh"><input type="checkbox" data-k="${k}" ${st[k]?"checked":""}><span>${esc(x.t)}</span><button type="button" class="star" data-star="${k}" aria-pressed="${sr[k]?"true":"false"}" aria-label="סימון בכוכב" title="שמירה לעצמי">${STAR}</button></label><div class="bd">`+
    (x.e?`<div class="kv"><b>מה זה</b><div>${paras(x.e)}</div></div>`:"")+`<div class="kv"><b>למה</b><div>${paras(x.w)}</div></div><div class="kv"><b>מתי</b><div>${paras(x.m)}</div></div>`+
    `<div class="acts"><button class="red hb" data-hw="${k}" aria-expanded="false">איך עושים</button><button class="deep" data-dp="${k}" aria-expanded="false">הסבר מפורט</button></div>`+
    `<div class="how" id="hw-${k}" hidden><div class="pn on">${body(x,"h")}</div>`+(x.s.length?`<h3 class="hh">הגדרות</h3><div class="pn on">${body(x,"s")}</div>`:"")+(x.n?`<p class="nw"><b>מה לא נכון היום:</b> ${fx(T(x.n))}</p>`:"")+`</div>`+
@@ -415,16 +427,24 @@ const savePos=()=>{const f=FL[cur];pos={k:f?f.k:"summary",t:Date.now()};try{loca
  if(!db)return;
  db.doc("progress/done").onSnapshot(sn=>{if(sn.exists){st={...((sn.data()||{}).done||{})};save();upd()}else if(!sn.metadata.fromCache&&!migr){migr=1;if(Object.keys(st).length)wr("progress/done",{done:st})}},()=>{});
  db.collection("steps").onSnapshot(sn=>{sn.docChanges().forEach(ch=>{const id=ch.doc.id;if(BUSY[id])return;if(ch.type==="removed")delete NOTE[id];else NOTE[id]=ch.doc.data()});Object.keys(SK).forEach(rn)},()=>{});
+ db.doc("progress/stars").onSnapshot(sn=>{if(sn.exists){sr={...((sn.data()||{}).stars||{})};saveS();upd()}else if(!sn.metadata.fromCache&&Object.keys(sr).length)wr("progress/stars",{stars:sr})},()=>{});
  let seen=0;try{db.doc("progress/pos").onSnapshot(sn=>{if(seen||(sn.metadata&&sn.metadata.fromCache))return;seen=1;const r=sn.exists?sn.data():null;
   if(r&&r.k&&(+r.t||0)>(+pos.t||0)){const i=idxOf(r.k);if(i>=0){pos=r;try{localStorage.setItem(PK,JSON.stringify(pos))}catch(e){}go(i,true)}}},()=>{})}catch(e){}
 })();
 const upd=()=>{let T=0,D=0;
  all.forEach(c=>{let d=0;c.s.forEach((x,j)=>{const k=c.id+"-"+j,on=!!st[k];if(on)d++;const i=document.querySelector(`[data-k="${k}"]`);i.checked=on;i.closest(".step").classList.toggle("dn",on);
-   document.querySelector(`[data-dk="${k}"]`).classList.toggle("dn",on);document.querySelector(`[data-tk="${k}"]`).classList.toggle("dn",on)});T+=c.s.length;D+=d;
+   document.querySelector(`[data-dk="${k}"]`).classList.toggle("dn",on);document.querySelector(`[data-tk="${k}"]`).classList.toggle("dn",on);
+   document.querySelector(`[data-star="${k}"]`).setAttribute("aria-pressed",sr[k]?"true":"false");document.querySelector(`[data-tk="${k}"]`).classList.toggle("st",!!sr[k])});T+=c.s.length;D+=d;
   document.getElementById("tc-"+c.id).textContent=`${d}/${c.s.length}`;
   document.querySelector(`.tch[data-c="${c.id}"]`).classList.toggle("dn",d===c.s.length)});
  document.getElementById("bar").style.width=(T?D/T*100:0)+"%";
- document.getElementById("cnt").textContent=`תרגלת ${D} מתוך ${T}`};
+ document.getElementById("cnt").textContent=`תרגלת ${D} מתוך ${T}`;
+ const fk=FL.map((f,i)=>[f,i]).filter(([f])=>sr[f.k]);
+ document.querySelectorAll(".fav").forEach(x=>x.hidden=!fk.length);
+ document.getElementById("favl").innerHTML=fk.map(([f,i])=>`<li><button class="ts st${typeof cur!=="undefined"&&i===cur?" cur":""}" data-go="${i}">${STAR}<span>${esc(f.c.s[f.j].t)}</span></button></li>`).join("")};
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-star]");if(!b)return;e.preventDefault();const k=b.dataset.star;
+ if(sr[k]){delete sr[k];toast("הכוכב הוסר.")}else{sr[k]=1;toast("נשמר. תמצא אותו בתוכן העניינים, תחת \"שמורים\".")}
+ saveS();upd();wr("progress/stars",{stars:sr})});
 document.addEventListener("change",e=>{const k=e.target.dataset&&e.target.dataset.k;if(!k)return;if(e.target.checked)st[k]=1;else delete st[k];save();upd();wr("progress/done",{done:st})});
 document.addEventListener("click",e=>{
  if(e.target.id==="rst")document.getElementById("dlg").classList.add("on");
