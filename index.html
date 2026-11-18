@@ -201,6 +201,18 @@ body.ai .mx:not(.has) .dt{display:inline-flex}
 .lmq .sm{color:var(--mute);font-size:clamp(17px,1.3vw,20px);line-height:1.5}
 .lmd{padding:4px clamp(22px,2vw,32px) 28px;display:grid;gap:14px}
 .lmd[hidden]{display:none}
+.lbk{display:inline-grid;place-content:center;width:42px;height:42px;min-height:42px!important;padding:0!important;border-radius:12px;border:1px solid var(--line);background:#121514;color:var(--ink);cursor:pointer}
+.lbk:hover{background:#1a1e1c;border-color:#ff6a3d66}
+.lbk svg{width:22px;height:22px;fill:none;stroke:var(--acc);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+#lmv{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;padding:clamp(10px,3vw,40px);background:rgba(0,0,0,.62);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+#lmv.on{display:flex}
+.lvw{width:min(1000px,100%);max-height:100%;display:flex;flex-direction:column;background:rgba(14,17,16,.98);border:1px solid #3a403c;border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,.6);overflow:hidden}
+.lvh{display:flex;align-items:center;gap:14px;padding:16px clamp(18px,2vw,28px);border-bottom:1px solid var(--line)}
+.lvh .lvt{flex:1;display:grid;gap:4px}
+.lvh .lmn{font-size:14px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lvh b{font-size:clamp(22px,2vw,30px);line-height:1.25}
+.lvb{overflow:auto;padding:22px clamp(18px,2.4vw,36px) 32px;display:grid;gap:14px}
+.lvb .kv p{font-size:17.5px}.lvb .how{padding:16px 20px;font-size:17.5px}
 .lmb .kv p{font-size:17.5px}
 .lmb .how{padding:16px 20px;font-size:17.5px}
 .toc .part.fav{display:flex;align-items:center;justify-content:space-between;gap:8px}
@@ -281,7 +293,7 @@ body.ai .mx:not(.has) .dt{display:inline-flex}
   </main>
 </div>
 
-<div id="lm" role="dialog" aria-modal="true" aria-label="מצב למידה"><div class="lmh"><button class="cp" id="lmx">סגירה</button><span id="lmw"></span></div><div class="lmb" id="lmb"></div></div>
+<div id="lm" role="dialog" aria-modal="true" aria-label="מצב למידה"><div class="lmh"><button class="lbk" id="lmx" aria-label="חזרה" title="חזרה"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><span id="lmw"></span></div><div class="lmb" id="lmb"></div><div id="lmv" role="dialog" aria-modal="true"><div class="lvw"><div class="lvh"><button class="lbk" id="lvx" aria-label="חזרה" title="חזרה"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><div class="lvt"><span class="lmn" id="lvn"></span><b id="lvt"></b></div></div><div class="lvb" id="lvb"></div></div></div></div>
 <script>
 {
 /* כל שלב: t כותרת, e מה זה, w למה, m מתי, h צעדי איך, s הגדרות [שם, הסבר], n מה לא נכון היום. w/m/n יכולים להיות מערך של פסקאות */
@@ -553,7 +565,9 @@ document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest
 /* מצב למידה: כל השלבים המסומנים בכוכב פרוסים במסך מלא */
 const lmList=()=>FL.filter(f=>sr[f.k]).map(f=>f.k);
 const one=v=>{const t=T(v).replace(/`/g,"").split("\n")[0];const m=t.match(/^.*?[.!?](?=\s|$)/);return m?m[0]:t};
-const lmTog=(k,on)=>{const c=document.getElementById("lm-"+k);if(!c)return;c.classList.toggle("op",on);c.querySelector(".lmd").hidden=!on;c.querySelector(".lmq").setAttribute("aria-expanded",on?"true":"false");
+const lmTog=(k,on)=>{const c=document.getElementById("lm-"+k),V=document.getElementById("lmv");if(!c)return;
+ if(on){document.getElementById("lvn").textContent=c.querySelector(".lmn").textContent;document.getElementById("lvt").textContent=c.querySelector(".lmq b").textContent;const vb=document.getElementById("lvb");vb.innerHTML=c.querySelector(".lmd").innerHTML;vb.scrollTop=0;V.dataset.k=k}
+ V.classList.toggle("on",on);c.querySelector(".lmq").setAttribute("aria-expanded",on?"true":"false");
  try{history.replaceState(null,"",on?"#learn-"+k:"#learn")}catch(e){}};
 const lmOpen=k=>{const L=lmList();let bb="",lc=null;
  L.forEach(q=>{const g=FL.find(f=>f.k===q),x=g.c.s[g.j];
@@ -567,14 +581,17 @@ const lmOpen=k=>{const L=lmList();let bb="",lc=null;
  document.getElementById("lmw").textContent=L.length?`מצב למידה · ${L.length} שלבים שמורים`:"מצב למידה";
  document.getElementById("lm").classList.add("on");document.body.classList.add("lmo");B.scrollTop=0;
  try{history.replaceState(null,"","#learn")}catch(e){}
- if(k&&L.includes(k)){lmTog(k,true);document.getElementById("lm-"+k).scrollIntoView({block:"start"})}};
-const lmClose=()=>{document.getElementById("lm").classList.remove("on");document.body.classList.remove("lmo");try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}};
+ document.getElementById("lmv").classList.remove("on");
+ if(k&&L.includes(k)){document.getElementById("lm-"+k).scrollIntoView({block:"start"});lmTog(k,true)}};
+const lmClose=()=>{document.getElementById("lmv").classList.remove("on");document.getElementById("lm").classList.remove("on");document.body.classList.remove("lmo");try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}};
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("button");if(!b)return;
  if(b.dataset.lq){const k=b.dataset.lq;lmTog(k,b.getAttribute("aria-expanded")!=="true")}
  else if(b.dataset.lm){e.preventDefault();const k=b.dataset.lm;if(b.closest("aside"))closeToc();lmOpen(k==="*"?null:k)}
+ else if(b.id==="lvx")lmTog(document.getElementById("lmv").dataset.k,false);
  else if(b.id==="lmx")lmClose()});
+document.getElementById("lmv").addEventListener("click",e=>{if(e.target.id==="lmv")lmTog(e.currentTarget.dataset.k,false)});
 {const h=location.hash.match(/^#learn(?:-(.+))?$/);if(h&&(!h[1]||SK[h[1]]))setTimeout(()=>lmOpen(h[1]||null),0)}
-document.addEventListener("keydown",e=>{if(e.key==="Escape"){if(document.getElementById("lm").classList.contains("on"))lmClose();else closeToc()}});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){if(document.getElementById("lmv").classList.contains("on"))lmTog(document.getElementById("lmv").dataset.k,false);else if(document.getElementById("lm").classList.contains("on"))lmClose();else closeToc()}});
 upd();
 {const i0=idxOf(pos.k);go(i0>=0?i0:0,true)}
 }
